@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oxygen Factory - Breathe Life into the Void</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Oxygen Factory</h1>
+            <h2>Breathe Life into the Void</h2>
+            <button id="settings-button" class="settings-button" aria-label="Open Settings">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z"/>
+                </svg>
+            </button>
+        </header>
+
+        <div class="resources">
+            <div class="resource">
+                <span>Day:</span>
+                <span id="days">0</span>
+            </div>
+            <div class="resource">
+                <span>Population:</span>
+                <span id="population">10</span>
+            </div>
+            <div class="resource primary">
+                <span>Oxygen:</span>
+                <span id="oxygen">0.0</span>/<span id="maxOxygen">100</span>
+            </div>
+            <div class="resource">
+                <span>Credits:</span>
+                <span id="credits">0</span>
+            </div>
+            <div class="resource">
+                <span>Research:</span>
+                <span id="research">0</span>
+            </div>
+            <div class="resource">
+                <span>Artifacts:</span>
+                <span id="artifacts">0</span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="game-area">
+                <div id="oxygen-extractor" class="clickable">
+                    <div class="extractor-animation"></div>
+                    <span>Click to Extract Oxygen</span>
+                </div>
+            </div>
+
+            <div class="upgrades-panel">
+                <h3>Colony Management</h3>
+                <div id="upgrades-list">
+                    <!-- Upgrades will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div class="story-panel">
+            <h3>Colony Log</h3>
+            <div id="story-content">
+                <p>Day 0: Welcome to Colony X17. Your mission is critical - generate oxygen to keep our colony alive.</p>
+            </div>
+        </div>
+
+        <div class="controls-help">
+            <p>Controls: Space - Generate Oxygen | S - Sell Oxygen</p>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="close-button" id="close-settings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>Game Settings</h4>
+                    <div class="setting-item">
+                        <label for="auto-save">Auto-save:</label>
+                        <select id="auto-save">
+                            <option value="5000">Every 5 seconds</option>
+                            <option value="10000">Every 10 seconds</option>
+                            <option value="30000">Every 30 seconds</option>
+                            <option value="60000">Every minute</option>
+                            <option value="300000">Every 5 minutes</option>
+                            <option value="0">Off</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <label for="auto-sell">Auto-sell at:</label>
+                        <select id="auto-sell">
+                            <option value="0.9">90% capacity</option>
+                            <option value="0.8">80% capacity</option>
+                            <option value="0.7">70% capacity</option>
+                            <option value="0">Off</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>Accessibility</h4>
+                    <div class="setting-item">
+                        <label for="font-size">Text Size:</label>
+                        <input type="range" id="font-size" min="80" max="150" value="100" step="10">
+                        <span id="font-size-value">100%</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="high-contrast">High Contrast:</label>
+                        <input type="checkbox" id="high-contrast">
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>Theme</h4>
+                    <div class="setting-item">
+                        <label for="theme-select">Select Theme:</label>
+                        <select id="theme-select">
+                            <option value="default">Default</option>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="cyberpunk">Cyberpunk</option>
+                            <option value="nature">Nature</option>
+                            <option value="retro">Retro</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>Interface</h4>
+                    <div class="setting-item">
+                        <label for="show-tooltips">Show Tooltips:</label>
+                        <input type="checkbox" id="show-tooltips" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="animation-speed">Animation Speed:</label>
+                        <select id="animation-speed">
+                            <option value="normal">Normal</option>
+                            <option value="fast">Fast</option>
+                            <option value="off">Off</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>Save Management</h4>
+                    <div class="setting-item">
+                        <button id="save-game" class="settings-button">Save Game</button>
+                        <button id="load-game" class="settings-button">Load Game</button>
+                        <button id="export-game" class="settings-button">Export Save</button>
+                        <button id="import-game" class="settings-button">Import Save</button>
+                        <button id="reset-game" class="settings-button warning">Reset Game</button>
+                    </div>
+                    <input type="file" id="import-file" accept=".json" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html> 
